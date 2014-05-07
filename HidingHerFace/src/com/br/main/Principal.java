@@ -27,9 +27,6 @@ public class Principal {
 	 */
 	public static void main(String[] args) {
 		
-		String workingDir = System.getProperty("user.dir");
-		   System.out.println("Current working directory : " + workingDir);
-		
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 
 		CascadeClassifier cascadeClassifier = new CascadeClassifier(System.getProperty("user.dir") + "/haarcascade_frontalface_alt.xml");
