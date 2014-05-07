@@ -27,12 +27,15 @@ public class Principal {
 	 */
 	public static void main(String[] args) {
 		
+		String workingDir = System.getProperty("user.dir");
+		   System.out.println("Current working directory : " + workingDir);
+		
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 
-		CascadeClassifier cascadeClassifier = new CascadeClassifier("C:/Users/rafael.monteiro/workspace/applet/RecFacial/src/com/shekhar/facedetection/haarcascade_frontalface_alt.xml");
+		CascadeClassifier cascadeClassifier = new CascadeClassifier(System.getProperty("user.dir") + "/haarcascade_frontalface_alt.xml");
 
 		Mat mat = Highgui
-				.imread("C:/Users/rafael.monteiro/Desktop/fundo3.jpg");
+				.imread(System.getProperty("user.dir") +"/chaves.jpg");
 		
 		//faz a detecção das faces
 		ServiceExtracaoFacesImagem serviceExtractFaces = new ServiceExtracaoFacesImagem();
@@ -59,10 +62,10 @@ public class Principal {
 		//"cola" os rostos desfocados sobre a imagem original
 		imagemCorteDesfoque = serviceOverlay.juntarImagens(propsFaces, imagemSemEfeitos);
 		
-		File outputfile = new File("saved.png");
+		File outputfile = new File("chaves menor.jpg");
 		
 	    try {
-			ImageIO.write(imagemCorteDesfoque, "png", outputfile);
+			ImageIO.write(imagemCorteDesfoque, "jpg", outputfile);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

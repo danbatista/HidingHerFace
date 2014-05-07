@@ -22,7 +22,7 @@ public class ServiceDesfoqueImagem {
 			      
 		Mat destination = new Mat(image.rows(),image.cols(),image.type());
 			      
-		Imgproc.GaussianBlur(image, destination,new Size(91,91), 0);
+		Imgproc.GaussianBlur(image, destination,new Size(45,45), 0);
 		
 		return destination;
 	}
