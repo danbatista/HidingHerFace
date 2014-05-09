@@ -10,15 +10,14 @@ import com.br.util.Util;
 
 public class ServiceDesfoqueImagem {
 	
-	public BufferedImage DesfocarImagem(BufferedImage imagem){
-		Mat mat = Util.converterParaMat(imagem);
-		mat = DesfocarImagem(mat);
+	public BufferedImage DesfocarImagem(Mat mat){
+		
+		mat = Desfocar(mat);
 		
 		return Util.converterParaImage(mat);
 	}
 	
-	
-	private Mat DesfocarImagem(Mat image){
+	private Mat Desfocar(Mat image){
 			      
 		Mat destination = new Mat(image.rows(),image.cols(),image.type());
 			      

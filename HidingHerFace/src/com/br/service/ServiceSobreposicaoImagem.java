@@ -8,6 +8,7 @@ import java.util.List;
 import com.br.model.PropriedadesFace;
 
 public class ServiceSobreposicaoImagem {
+	
 	public BufferedImage juntarImagens(List<PropriedadesFace> dados, BufferedImage imagemPrincipal){
 		
 		for(PropriedadesFace dado: dados){

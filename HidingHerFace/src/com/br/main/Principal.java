@@ -16,7 +16,7 @@ import org.opencv.objdetect.CascadeClassifier;
 import com.br.model.PropriedadesFace;
 import com.br.service.ServiceDesfoqueImagem;
 import com.br.service.ServiceCorteImagem;
-import com.br.service.ServiceExtracaoFacesImagem;
+import com.br.service.ServiceDeteccaoFacesImagem;
 import com.br.service.ServiceSobreposicaoImagem;
 import com.br.util.Util;
 
@@ -29,23 +29,21 @@ public class Principal {
 		
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 
-		CascadeClassifier cascadeClassifier = new CascadeClassifier(System.getProperty("user.dir") + "/haarcascade_frontalface_alt.xml");
+		//esse arquivo contém as parametrizações para fazer a detecção facial
+		CascadeClassifier cascadeClassifier = new CascadeClassifier(System.getProperty("user.dir") + "/haarcascade_frontalface_alt_tree.xml");
 
-		Mat mat = Highgui
-				.imread(System.getProperty("user.dir") +"/chaves.jpg");
+		Mat mat = Highgui.imread(System.getProperty("user.dir") +"/chaves.jpg");
 		
 		//faz a detecção das faces
-		ServiceExtracaoFacesImagem serviceExtractFaces = new ServiceExtracaoFacesImagem();
+		ServiceDeteccaoFacesImagem serviceExtractFaces = new ServiceDeteccaoFacesImagem();
 		MatOfRect matOfRect = serviceExtractFaces.detectarFaces(cascadeClassifier, mat);
 		
 		//obtem os dados de onde estão as faces (altura, largura, posição x e y)
 		List<PropriedadesFace> propsFaces = serviceExtractFaces.obterDadosFaces(matOfRect);
 		
-		BufferedImage imagemCorteDesfoque = Util.converterParaImage(mat);
-		
 		//desfoca a imagem
 		ServiceDesfoqueImagem serviceBlur = new ServiceDesfoqueImagem();
-		imagemCorteDesfoque = serviceBlur.DesfocarImagem(imagemCorteDesfoque);
+		BufferedImage imagemCorteDesfoque = serviceBlur.DesfocarImagem(mat);
 		
 		//corta os rostos da imagem desfocada, 
 		ServiceCorteImagem serviceCrop = new ServiceCorteImagem();
